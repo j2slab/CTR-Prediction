@@ -99,8 +99,8 @@ The system ensemble contains the following models:
         a.	Naïve Bayes
         b.	Logistic Regression       
 
-2.	Regression Models          
-        a.	Ridge Regression          
+2.	Regression Models
+        a.       Ridge Regression          
         b.	Support Vector Regression        
 
 3.	Ranking Models        
@@ -115,7 +115,8 @@ Once completed, an empirical evaluation will be conducted on two datasets:
 
 1.      The Criteo Labs Click-Through Rate Dataset [6]_ 
 2.      The KDD-2012 CTR Prediction Dataset [7]_
-created using TensorFlow, will be evaluated vis-à-vis the DeepFwFM.
+
+The results will be outlined in blog post scheduled for mid-October 2020. 
 
 
 References
@@ -150,7 +151,7 @@ References
         rate of ads given the query and user information.” [Online]. 
         Available: https://www.kdd.org/kdd-cup/view/kdd-cup-2012-track-2. 
         [Accessed: 31-Aug-2020].
-        
+
 Features
 --------
 
