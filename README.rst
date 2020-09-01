@@ -113,7 +113,8 @@ The system ensemble contains the following models:
 
 Once completed, an empirical evaluation will be conducted on two datasets:
 
-1.      The Criteo Labs Click-Through Rate Dataset [6]_
+1.      The Criteo Labs Click-Through Rate Dataset [6]_ 
+2.      The KDD-2012 CTR Prediction Dataset [7]_
 created using TensorFlow, will be evaluated vis-à-vis the DeepFwFM.
 
 
@@ -145,6 +146,11 @@ References
         Available: https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8566156.
         [Accessed: 23-Aug-2020].
 
+.. [7]  KDDSIG, “SIGKDD : KDD Cup 2012 (Track 2) : Predict the click-through 
+        rate of ads given the query and user information.” [Online]. 
+        Available: https://www.kdd.org/kdd-cup/view/kdd-cup-2012-track-2. 
+        [Accessed: 31-Aug-2020].
+        
 Features
 --------
 
