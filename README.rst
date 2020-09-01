@@ -86,26 +86,35 @@ This framework accelerates CTR predictions in three respects:
 3.	promote the sparsity of the embedding layer to preserve the 
         most discriminant signals. 
 
+By integrating the above components, this approach accelerates model inference 
+on the order of 46X on Criteo dataset with no loss in prediction accuracy. 
+This approach is a step towards more effective production deployment of 
+complicated embedding-based neural networks for ad serving and 
+management. 
 
 An Ensemble of Diverse Models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The system ensemble contains the following models: 
 1.	Classification Models
         a.	Naïve Bayes
-        b.	Logistic Regression
-2.	Regression Models
-        a.	Ridge Regression
-        b.	Support Vector Regression
-3.	Ranking Models
-        a.	Rank Logistic Regression
-        b.	RankNet
-4.	Matrix Factorization Models
-        a.	Regression-Based Matrix Factorization
-        b.	Ranking Based Matrix Factorization
+        b.	Logistic Regression       
 
-Once each model will be evaluated on a validation set, the ensemble, to be 
+2.	Regression Models          
+        a.	Ridge Regression          
+        b.	Support Vector Regression        
+
+3.	Ranking Models        
+        a.	Rank Logistic Regression            
+        b.	RankNet          
+
+4.	Matrix Factorization Models         
+        a.	Regression-Based Matrix Factorization          
+        b.	Ranking Based Matrix Factorization                   
+
+Once completed, an empirical evaluation will be conducted on two datasets:
+
+1.      The Criteo Labs Click-Through Rate Dataset [6]_
 created using TensorFlow, will be evaluated vis-à-vis the DeepFwFM.
-
 
 
 References
@@ -132,20 +141,25 @@ References
 .. [5]	K. Wu et al., “A Two-Stage Ensemble of Diverse Models for Advertisement 
         Ranking in KDD Cup 2012,” KDD KDD Cup Work., 2012.
 
-
+.. [6]  “IEEE Xplore Full-Text PDF:” [Online]. 
+        Available: https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8566156.
+        [Accessed: 23-Aug-2020].
 
 Features
 --------
 
 * Some really kewl stuff.
 
+license
+-------
 * Free software: BSD license
-* Documentation: https://ctr.readthedocs.io.
+
+Documentation
+-------------
+TODO
 
 :Authors:
-    John James    
-    nov8.ai
-
+    John James @ nov8.ai      
 :Version: 0.1.0
 :Dedication: To my Mother.
 
