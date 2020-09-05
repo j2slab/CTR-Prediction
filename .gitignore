@@ -13,6 +13,9 @@ write-ups/
 opportunity/
 *.bib
 
+# Documentation related 
+*.csl
+
 # Workspaces and project files
 *.code-workspace
 *.Rproj
