@@ -1,0 +1,6 @@
+```{r unset_bigmark, echo=FALSE, cache=FALSE, warning=FALSE, message=FALSE}
+knitr::knit_hooks$set(inline = function(x) {
+  prettyNum(x, big.mark="")
+})
+```
+

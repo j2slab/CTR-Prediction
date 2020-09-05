@@ -1,45 +1,89 @@
-=============================
-Click Through Rate Prediction
-=============================
+---
+title: "Maximizing Click-Through Rate (CTR) with Analytics and State of the Art Ensemble and Deep Learning CTR Prediction Models"
+author: "John James john.james@nov8.ai"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output: 
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: true
+    theme: flatly
+    highlight: zenburn
+    css: "style.css"
+bibliography: library.bib  
+csl: ieee.csl
+---
+
+```{r libraries, echo=FALSE, cache=FALSE, warning=FALSE, message=FALSE, results='hide'}
+library(dplyr)
+library(extrafont)
+library(htmltools)
+library(kableExtra)
+library(kfigr)
+library(knitr)
+library(plotly)
+library(reticulate)
+library(rmarkdown)
+library(tufte)
+use_condaenv("gd383")
+matplotlib <- import("matplotlib")
+matplotlib$use("Agg", force=TRUE)
+```
 
 
-.. image:: https://img.shields.io/pypi/v/ctr.svg
-        :target: https://pypi.python.org/pypi/ctr
 
-.. image:: https://img.shields.io/travis/j2slab/ctr.svg
-        :target: https://travis-ci.com/j2slab/ctr
+```{r setup, echo=FALSE, cache=FALSE, warning=FALSE, message=FALSE}
+figures <- '/figures/'
+options(knitr.table.format = "html")
+options(max.print=100, scipen=999, width = 800)
+knitr::opts_chunk$set(echo=FALSE,
+	             cache=FALSE,
+               prompt=FALSE,
+	             eval = TRUE,
+               tidy=TRUE,
+               fig.height = 8,
+               fig.width = 20,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+knitr::opts_knit$set(width=100, figr.prefix = T, figr.link = T)
+knitr::opts_chunk$set(fig.path = figures)
+knitr::knit_hooks$set(inline = function(x) {
+  prettyNum(x, big.mark=",")
+})
+```
 
-.. image:: https://readthedocs.org/projects/ctr/badge/?version=latest
-        :target: https://ctr.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
+```{python imports}
+import numpy as np
+import pandas as pd
+import matplotlib
+import matplotlib.pyplot as plt
+import mlstudio
+```
 
+```{python syspath}
+import inspect
+import os
+import sys
+os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = 'C:/Users/John/anaconda3/envs/gd383/Library/plugins/platforms'
+# Add home directory to path
+home = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+sys.path.append(home)
+```
 
-.. image:: https://pyup.io/repos/github/j2slab/ctr/shield.svg
-     :target: https://pyup.io/repos/github/j2slab/ctr/
-     :alt: Updates
+# Click-Through Rate: Describes and Determines Effectiveness of $135.Billion in Online Ad Spending per Annum 
 
-
-
-The Importance of Click-Through Rates
--------------------------------------
-
-Click-through rate (CTR), the percent of impressions clicked on by the user, 
-is not only descriptive but prescriptive. CTR reveals the strength 
-(or weakness) and quality of ad copy, imagery, positioning, and keywords. 
-CTR also determines ad position as well as the cost of ad placements. 
-For instance, Google uses CTR to determine not only the amount paid for 
-online advertising but also the placement of the ad on search pages.  
-A low CTR reduces the Quality Score; consequently, Google determines that 
-the ad is not as relevant as others on the page. Therefore, marketers with low 
-CTRs have lower page positions, and to add insult to injury, incur higher 
+Click-through rate (CTR), the percent of impressions clicked on by the user, is not only descriptive but determinative. It reveals the strength (or weakness) and quality of ad copy, imagery, positioning, and keywords. 
+CTR also determines ad position as well as the cost of ad placements. For instance, Google uses CTR to determine not only the amount paid for online advertising but also the placement of the ad on search pages.  A low CTR reduces the Quality Score; consequently, Google determines that the ad is not as relevant as others on the page. Therefore, marketers with low CTRs have lower page positions, and to add insult to injury, incur higher 
 pay-per-click rates. 
 
+[[REVIEW ARTICLE ON GLOBAL CTR RATES, DESCRIBE PROBLEM MORE SPECIFICALLY LOW CTR, AND IMPACT OF LOW CTR,HOW PLACEMENT AND RATES ARE CALCULATED]]
 Therefore, accurate CTR prediction is imperative for online marketers.
 
-How Big is the Problem
-----------------------
-In a word, massive! Global digital ad spending crested $325 billion in 
-2019 [1]_, and analysts expect digital ad spending to reach $982.82 billion 
+## How Big is the ?
+
+In a word, massive! Global digital ad spending crested \$325 billion in 2019 [1]_, and analysts expect digital ad spending to reach $982.82 billion 
 by 2025, at a CAGR of 21.6% [2]_. A McKinsey study shows that using data to 
 make better marketing decisions can increase marketing productivity by 
 15%-20%. Given the average annual global marketing spend of $ trillion, 
@@ -152,23 +196,4 @@ References
         rate of ads given the query and user information.” [Online]. 
         Available: https://www.kdd.org/kdd-cup/view/kdd-cup-2012-track-2. 
         [Accessed: 31-Aug-2020].
-
-Features
---------
-
-* Some really kewl stuff.
-
-License
--------
-* Free software: BSD license
-
-Documentation
--------------
-TODO
-
-:Authors:
-    John James @ nov8.ai      
-:Version: 0.1.0
-:Dedication: To my Mother.
-
-
+References

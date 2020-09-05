@@ -1,0 +1,79 @@
+---
+title: "Maximizing Click-Through Rate (CTR) - What Works. What Doesn't and State of the Art CTR Prediction Accuracy with Machine Learning Ensemble Methods and a Field-weighted Factorization Based Deep Learning Model"
+author: "John James john.james@nov8.ai"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output: 
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: true
+    theme: flatly
+    highlight: zenburn
+    css: "style.css"
+bibliography: library.bib  
+csl: ieee.csl
+---
+
+```{r libraries, echo=FALSE, cache=FALSE, warning=FALSE, message=FALSE, results='hide'}
+library(dplyr)
+library(extrafont)
+library(htmltools)
+library(kableExtra)
+library(kfigr)
+library(knitr)
+library(plotly)
+library(reticulate)
+library(rmarkdown)
+library(tufte)
+use_condaenv("gd383")
+matplotlib <- import("matplotlib")
+matplotlib$use("Agg", force=TRUE)
+```
+
+
+
+```{r setup, echo=FALSE, cache=FALSE, warning=FALSE, message=FALSE}
+figures <- '/figures/'
+options(knitr.table.format = "html")
+options(max.print=100, scipen=999, width = 800)
+knitr::opts_chunk$set(echo=FALSE,
+	             cache=FALSE,
+               prompt=FALSE,
+	             eval = TRUE,
+               tidy=TRUE,
+               fig.height = 8,
+               fig.width = 20,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+knitr::opts_knit$set(width=100, figr.prefix = T, figr.link = T)
+knitr::opts_chunk$set(fig.path = figures)
+knitr::knit_hooks$set(inline = function(x) {
+  prettyNum(x, big.mark=",")
+})
+```
+
+```{python imports}
+import numpy as np
+import pandas as pd
+import matplotlib
+import matplotlib.pyplot as plt
+import mlstudio
+```
+
+```{python syspath}
+import inspect
+import os
+import sys
+os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = 'C:/Users/John/anaconda3/envs/gd383/Library/plugins/platforms'
+# Add home directory to path
+home = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+sys.path.append(home)
+```
+
+
+```{r child = '01_opportunity.Rmd'}
+```
+
+References

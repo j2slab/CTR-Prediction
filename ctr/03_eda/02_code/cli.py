@@ -1,8 +1,7 @@
-"""Main module."""
-print("hello world")
+"""Console script for ctr."""
 import sys
-print(sys.path)
 import click
+
 
 @click.command()
 def main(args=None):

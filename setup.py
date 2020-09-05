@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+##!/usr/bin/env python
 
 """The setup script."""
 
@@ -10,7 +10,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', ]
+requirements = ['click>=7.0', ]
 
 setup_requirements = ['pytest-runner', ]
 
@@ -34,7 +34,7 @@ setup(
     description="Click Through Rate Prediction Model",
     entry_points={
         'console_scripts': [
-            'ctr=ctr.cli:main',
+            'ctr=ctr.ctr:main'
         ],
     },
     install_requires=requirements,

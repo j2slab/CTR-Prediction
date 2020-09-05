@@ -1,0 +1,85 @@
+```{r unset_bigmark, echo=FALSE, cache=FALSE, warning=FALSE, message=FALSE}
+knitr::knit_hooks$set(inline = function(x) {
+  prettyNum(x, big.mark="")
+})
+```
+
+# Data 
+This module collects, organizes, audits, and prepares the data for the exploratory data analysis. The object of this analysis is the KDD Cup 2012 Track 2 Click-Through Rate Competition dataset hosted and provided by Kaggle.  
+
+The data package contains:
+
+
+
+
+This notebook collects, organizes and ensure that the data is well defined for the exploratory data analysis phase. This project will be using two datasets.
+
+- Criteo Labs 1TB Click-Through Rate Benchmark File,
+- KDD Cup 2012 Track 2 Click-Through Rate Competition Dataset
+
+The KDD dataset will be the focus of this initial effort. The Criteo dataset will be handled in the Data Gathering 2.0 notebook.
+
+The KDD 2012 Dataset
+This data package is comprised of a training and test set obtained from session logs of the Tencent proprietary search engine, soso.com. The summary statistics regarding this database are:
+
+enter table here
+
+## Training Dataset
+The training data file a text file, where each line is a training instance derived from search session log messages. To understand the training data, let us begin with a description of search sessions.
+
+A search session refers to an interaction between a user and the search engine. It contains the following ingredients:
+
+- the user,
+- the query issued by the user,
+- some ads returned by the search engine and thus impressed (displayed) to the user, and
+- zero or more ads that were clicked by the user.
+
+For clarity, we introduce some definitions:
+
+  1. Depth: the number of ads impressed upon a user in a session.               
+  2. Position: The order of the ad in the impression list           
+  3. Title: The short text that appears when an ad is displayed.             
+  4. Description: The slightly longer text following the title.           
+  5. Display URL: A URL displayed which is usually shortened to preserve screen space.             
+  6. Impression: The number of search sessions in which the ad, specified by an AdID, was impressed upon the user, designated by a UserID, who clicked the ad.             
+  7. Click: The number of times, among the above impressions, the user (UserID) clicked the ad (AdID).                
+
+Therefore, the training set contains the following fields delimited by the TAB character:                 
+
+  1.  Click: as described in the above list.                 
+  2.  Impression: as described in the above list.             
+  3.  DisplayURL: a property of the ad. Shown together with the title and description of an ad, the DisplayURL is hashed for anonymity purposes.             
+  4.  AdID: as described in the above list.             
+  5.  AdvertiserID: a property of the ad.            
+  6.  Depth: a property of the session, as described above.            
+  7.  Position: a property of an ad in a session, as described above.             
+  8.  QueryID: id of the query and a foreign key to the data file 'queryid_tokensid.txt'.                
+  9.  KeywordID: a property of ads and a foreign key to the data file 'purchasedkeyword_tokensid.txt'.             
+  10. TitleID: a property of ads and the foreign key to the data file 'titleid_tokensid.txt'.              
+  11. DescriptionID: a property of ads and the foreign key to the data file 'descriptionid_tokensid.txt'.               
+  12. UserID: This is the key of 'userid_profile.txt'. When we cannot identify the user, this field has a special value of 0.             
+
+ADDITIONAL DATA FILES As hinted to above, there are five additional data files:
+
+  1.  queryid_tokensid.txt
+  2.  purchasedkeywordid_tokensid.txt
+  3.  titleid_tokensid.txt
+  4.  descriptionid_tokensid.txt
+  5.  userid_profile.txt
+
+Each line of the first four files maps an id to a list of tokens, corresponding to the query, keyword, ad title, and ad description,respectively. In each line, a TAB character separates the id and the token set. A token can basically be a word in a natural language. For anonymity, each token is represented by its hash value. Tokens are delimited by the character ‘|’.
+
+Each line of ‘userid_profile.txt’ is composed of
+
+  1.  UserID,
+  2.  Gender, and
+  3.  Age, delimited by the TAB character. Note that not every UserID in the training and the testing set will be present in ‘userid_profile.txt’. Each field is described below:
+
+Gender: '1' for male, '2' for female, and '0' for unknown.
+Age: '1' for (0, 12], '2' for (12, 18], '3' for (18, 24], '4' for (24, 30], '5' for (30, 40], and '6' for greater than 40.
+
+## Test Set
+The testing dataset shares the same format as the training dataset, except for the counts of ad impressions and ad clicks that are needed for computing the empirical CTR. The log for forming the training dataset corresponds to earlier time than that of the testing dataset.
+
+## Imports
+The packages required for this task are imported below.

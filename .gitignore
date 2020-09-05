@@ -6,10 +6,16 @@ __pycache__/
 # C extensions
 *.so
 
-# Data, Research and Writeups
+# Data, Research, bibtex and Writeups
 data/
 research/
 write-ups/
+opportunity/
+*.bib
+
+# Workspaces and project files
+*.code-workspace
+*.Rproj
 
 # Distribution / packaging
 .Python
@@ -108,3 +114,4 @@ ENV/
 
 # IDE settings
 .vscode/
+.Rproj.user
