@@ -3,4 +3,15 @@ knitr::knit_hooks$set(inline = function(x) {
   prettyNum(x, big.mark="")
 })
 ```
+# Data Preprocessing
+This 
 
+KDD-2012 CTR Prediction Dataset
+This dataset, provided by the Association for Computing Machinery (ACM) for the KDD 2012 CTR Prediction contest, is comprised of a training and a test set. The 9.8GB training dataset contains 149,639,105 samples, and the test set includes 20,257,594 examples and has a size of 1.28GB. The core dataset contains the following information: •	UserID: An anonymized indicator for a user and key to the userid_profile file •	AdID: A unique identifier for an ad. •	AdvertiserID: a unique identifier for an advertiser •	QueryID: The key to the query_tokens file • KeywordID: The key to the purchased_keword file •	TitleID: The key to the titleid_tokensid file •	DescriptionID: The key to the description_tokensid file •	Query: The search issued by the user •	Depth: The number of ads impressed in a user session •	Position: The order of an advertisement in the impression list •	Impression: the number of search sessions in which the AdID was impressed upon UserID, who issued Query •	Click: the number of times, among the above impressions, the UserID clicked AdID. •	DisplayURL: the URL shown together with the title and description of an ad.
+
+Additional Files include: •	Query ID / Tokens ID: Maps the query ID to a list of tokens •	Purchased KeywordID / TokensID: Maps purchased keywords to a list of tokens •	TitleID / TokensID: Maps the TitleID to a list of tokens •	DescriptionID / TokensID: Maps a description to a list of tokens •	UserID Profile: Each line of this file contains the UserID, gender, and age.
+
+Criteo Labs CTR Prediction Benchmark Dataset
+The Criteo Labs CTR Prediction Benchmark Dataset is the largest click-through prediction dataset in existence as of the time of this writing. Consisting of of Criteo’s traffic over 24 days, this 1TB dataset contains feature values and clicks feedback for millions of display ads. Its purpose is to benchmark algorithms for click-through rate (CTR) prediction.
+
+Each row corresponds to a display ad served by Criteo, and the first column indicates whether a user has clicked on the advertisement. There are 13 features taking integer values (mostly count features) and 26 categorical features. Unfortunately, the features are anonymized; therefore, it will be used for modeling and prediction purposes only.

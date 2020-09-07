@@ -23,69 +23,82 @@ import os
 import shutil
 import zipfile
 
-from ctr import KDD_DATA_FILENAME, get_logger
+from ctr import get_logger
+from ctr.utils.file_manager import copy_file, rm_directory_tree, make_directory
+from ctr.utils.file_manager import tab_to_csv, download_aws
 # --------------------------------------------------------------------------- #
 
-class ExtractZipData:
-    """ Extracts and stores designated files from a zip archive.
+class KDDCupData:
+    """ Downloads, extracts and stages the raw KDD Cup Dataset. 
 
     Parameters
     ----------
     zip_filename : str
         The name of the zip file including the ".zip" extension.
 
-    src_dir : str
+    ext_data_dir : str
         The directory containing the zip file
 
-    tgt_dir : str
+    raw_data_dir : str
         The directory into which the files are stored.
+
+    csv_data_dir : str
+        The directory into which csv converted files are stored.        
 
     file_ext : str (optional, default=None)
         The file extension for files to extract. If None, all files will
         be extracted.
 
-    """
-    def __init__(self, zip_filename, src_dir, tgt_dir, file_ext=None):
+    """    
+
+    def __init__(self, bucket_name, zip_filename, ext_data_dir, raw_data_dir, 
+                 csv_data_dir, file_ext=None):
+        self.bucket_name = bucket_name
         self.zip_filename = zip_filename
-        self.src_dir = src_dir
-        self.tgt_dir = tgt_dir
+        self.ext_data_dir = ext_data_dir
+        self.raw_data_dir = raw_data_dir
+        self.csv_data_dir = csv_data_dir
         self.file_ext = file_ext        
 
     def _initialize(self):
         """ Prepares raw data directory, or returns False if data exists."""
         me = self.__class__.__name__ + " : " + inspect.stack()[0][3] 
         logger = get_logger(me)
-
         starting_extraction = "Initiating data extraction process."        
-        data_exists = "The target directory is non empty. Do you wish to overwrite the data? [Y/N]"        
-
         logger.info(starting_extraction)
+        
+        data_exists = "The target directory is non empty. Do you wish to overwrite the data? [Y/N]"                
 
         if ".zip" in self.zip_filename:
-            if os.path.exists(self.tgt_dir):
-                if len(os.listdir(self.tgt_dir)) > 0:                
+            if os.path.exists(self.raw_data_dir):
+                if len(os.listdir(self.raw_data_dir)) > 0:                
                     overwrite = input(data_exists)
                     if 'y' in overwrite.lower():
-                        try:
-                            shutil.rmtree(self.tgt_dir)
-                            try:
-                                os.mkdir(self.tgt_dir)
-                            except OSError as e:
-                                print(e)
-                        except OSError as e:                            
-                            logger.error(e)
+                        rm_directory_tree(self.raw_data_dir)
+                        rm_directory_tree(self.csv_data_dir)
+                        make_directory(self.raw_data_dir)
+                        make_directory(self.csv_data_dir)
                         return True
                     else:
                         logger.info("Data extraction aborted")
                         return False
             else:
-                try:
-                    os.mkdir(self.tgt_dir)
-                except OSError as e:
-                    print(e)
+                make_directory(self.raw_data_dir)
+                make_directory(self.csv_data_dir)                
                 return True
         else:
             raise TypeError("File is not a zipfile format.")
+
+    def _download(self):
+        """Downloads the dataset from the AWS S3 Bucket."""
+        me = self.__class__.__name__ + " : " + inspect.stack()[0][3] 
+        logger = get_logger(me)        
+        logger.info("Downloading data from Amazon S3 Bucket")  
+
+        download_aws(bucket_name=self.bucket_name, filename=self.zip_filename,
+                     dirname=self.ext_data_dir)
+        
+        logger.info("Data download completed successfully.")
 
     def _extract_data(self, zipfile_name=None, base_path=None):
         """Extracts all members from zip file recursively."""
@@ -104,15 +117,31 @@ class ExtractZipData:
         archive.close()
 
         for member in members:
-            if member[-4:] == '.txt':
-                src_path = extract_path + member
-                shutil.copy2(src_path, self.tgt_dir) 
+            if member[-4:] == self.file_ext:
+
                 logger.info("Staging {f}".format(f=member))
+                src_path = extract_path + member
+                copy_file(src_path, dest_dir=self.raw_data_dir)
 
             elif member[-4:] == '.zip':
                     self._extract_data(zipfile_name=member, base_path=extract_path)            
                 
         return extract_path
+
+    def _convert_data(self):
+        """Convert data from tab-delimited to comma delimited format."""
+        me = self.__class__.__name__ + " : " + inspect.stack()[0][3] 
+        logger = get_logger(me)
+        logger.info("Converting data to csv format.")           
+
+        filenames = os.listdir(self.raw_data_dir)
+        for filename in filenames:            
+            txtfile = self.raw_data_dir + filename
+            csvfile = self.csv_data_dir + filename.strip(".txt") + ".csv"
+            logger.info("Converting {f} to .csv format.".format(f=txtfile))
+            tab_to_csv(txtfile=txtfile, csvfile=csvfile)
+        
+        logger.info("Conversion complete.")
 
     def _finalize(self):
         """ Cleans up extracted files from source directory."""
@@ -120,18 +149,25 @@ class ExtractZipData:
         logger = get_logger(me)
         logger.info("Data extraction complete.")
 
-    def extract(self):
+    def stage(self):
         if self._initialize():
-            self._extract_data(zipfile_name=self.zip_filename, base_path=self.src_dir)
+            self._download()
+            self._extract_data(zipfile_name=self.zip_filename, base_path=self.ext_data_dir)            
+            self._convert_data()
             self._finalize()
 
 def main():
 
-    SRC_DIR = "../data/external/"
-    TGT_DIR = "../data/raw/"
-    extractor = ExtractZipData(zip_filename=KDD_DATA_FILENAME, src_dir=SRC_DIR,
-                               tgt_dir=TGT_DIR, file_ext=".txt")
-    extractor.extract()
+    AWS_BUCKET_NAME = "ctr-prediction"
+    EXT_DATA_DIR = "./data/external/"
+    RAW_DATA_DIR = "./data/raw/"
+    CSV_DATA_DIR = "./data/csv/"
+    KDD_DATA_FILENAME = "kddcup2012-track2.zip"
+
+    kdd = KDDCupData(bucket_name=AWS_BUCKET_NAME, zip_filename=KDD_DATA_FILENAME, 
+                     ext_data_dir=EXT_DATA_DIR, raw_data_dir=RAW_DATA_DIR, 
+                     csv_data_dir=CSV_DATA_DIR, file_ext=".txt")
+    kdd.stage()
     
     
 
