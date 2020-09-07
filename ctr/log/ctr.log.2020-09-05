@@ -1,0 +1,120 @@
+2020-09-05 04:33:35,049 - ctr - INFO - Setting up None directories.
+2020-09-05 04:46:37,930 - ctr - INFO - Setting up None directories.
+2020-09-05 04:51:12,161 - ctr - INFO - Setting up None directories.
+2020-09-05 04:51:12,161 - ctr - INFO - Setting up None directories.
+2020-09-05 04:52:29,289 - ctr - INFO - Setting up None directories.
+2020-09-05 04:52:29,289 - ctr - INFO - Setting up None directories.
+2020-09-05 04:52:29,289 - ctr - INFO - Setting up None directories.
+2020-09-05 04:52:56,506 - ctr - INFO - Setting up None directories.
+2020-09-05 04:52:56,506 - ctr - INFO - Setting up None directories.
+2020-09-05 04:52:56,506 - ctr - INFO - Setting up None directories.
+2020-09-05 04:52:56,506 - ctr - INFO - Setting up None directories.
+2020-09-05 04:54:57,753 - ctr - INFO - Setting up None directories.
+2020-09-05 04:54:57,753 - ctr - INFO - Setting up None directories.
+2020-09-05 04:54:57,753 - ctr - INFO - Setting up None directories.
+2020-09-05 04:54:57,753 - ctr - INFO - Setting up None directories.
+2020-09-05 04:54:57,753 - ctr - INFO - Setting up None directories.
+2020-09-05 04:55:50,657 - ctr - INFO - Setting up None directories.
+2020-09-05 04:55:50,657 - ctr - INFO - Setting up None directories.
+2020-09-05 04:55:50,657 - ctr - INFO - Setting up None directories.
+2020-09-05 04:55:50,657 - ctr - INFO - Setting up None directories.
+2020-09-05 04:55:50,657 - ctr - INFO - Setting up None directories.
+2020-09-05 04:55:50,657 - ctr - INFO - Setting up None directories.
+2020-09-05 04:57:04,986 - ctr - INFO - Setting up None directories.
+2020-09-05 04:57:04,986 - ctr - INFO - Setting up None directories.
+2020-09-05 04:57:04,986 - ctr - INFO - Setting up None directories.
+2020-09-05 04:57:04,986 - ctr - INFO - Setting up None directories.
+2020-09-05 04:57:04,986 - ctr - INFO - Setting up None directories.
+2020-09-05 04:57:04,986 - ctr - INFO - Setting up None directories.
+2020-09-05 04:57:04,986 - ctr - INFO - Setting up None directories.
+2020-09-05 04:58:26,092 - ctr - INFO - Setting up None directories.
+2020-09-05 05:05:01,470 - ctr - INFO - Directory ../../tests/00_pipeline created.
+2020-09-05 05:05:01,473 - ctr - INFO - Directory ../../tests/01_data_access created.
+2020-09-05 05:05:01,476 - ctr - INFO - Directory ../../tests/02_data_preprocessing created.
+2020-09-05 05:05:01,479 - ctr - INFO - Directory ../../tests/03_eda created.
+2020-09-05 05:05:01,483 - ctr - INFO - Directory ../../tests/04_data_preparation created.
+2020-09-05 05:05:01,486 - ctr - INFO - Directory ../../tests/05_model_development created.
+2020-09-05 05:05:01,489 - ctr - INFO - Directory ../../tests/06_model_selection created.
+2020-09-05 05:05:01,492 - ctr - INFO - Directory ../../tests/07_model_evaluation created.
+2020-09-05 05:05:01,495 - ctr - INFO - Directory ../../tests/08_deployment created.
+2020-09-05 05:05:01,498 - ctr - INFO - Directory ../../tests/09_documentation created.
+2020-09-05 05:06:35,329 - ctr - INFO - Directory ../../tests/00_pipeline already exists.
+2020-09-05 05:06:35,329 - ctr - INFO - Directory ../../tests/00_pipeline already exists.
+2020-09-05 05:06:35,331 - ctr - INFO - Directory ../../tests/01_data_access already exists.
+2020-09-05 05:06:35,331 - ctr - INFO - Directory ../../tests/01_data_access already exists.
+2020-09-05 05:06:35,333 - ctr - INFO - Directory ../../tests/02_data_preprocessing already exists.
+2020-09-05 05:06:35,333 - ctr - INFO - Directory ../../tests/02_data_preprocessing already exists.
+2020-09-05 05:06:35,335 - ctr - INFO - Directory ../../tests/03_eda already exists.
+2020-09-05 05:06:35,335 - ctr - INFO - Directory ../../tests/03_eda already exists.
+2020-09-05 05:06:35,337 - ctr - INFO - Directory ../../tests/04_data_preparation already exists.
+2020-09-05 05:06:35,337 - ctr - INFO - Directory ../../tests/04_data_preparation already exists.
+2020-09-05 05:06:35,339 - ctr - INFO - Directory ../../tests/05_model_development already exists.
+2020-09-05 05:06:35,339 - ctr - INFO - Directory ../../tests/05_model_development already exists.
+2020-09-05 05:06:35,340 - ctr - INFO - Directory ../../tests/06_model_selection already exists.
+2020-09-05 05:06:35,340 - ctr - INFO - Directory ../../tests/06_model_selection already exists.
+2020-09-05 05:06:35,343 - ctr - INFO - Directory ../../tests/07_model_evaluation already exists.
+2020-09-05 05:06:35,343 - ctr - INFO - Directory ../../tests/07_model_evaluation already exists.
+2020-09-05 05:06:35,344 - ctr - INFO - Directory ../../tests/08_deployment already exists.
+2020-09-05 05:06:35,344 - ctr - INFO - Directory ../../tests/08_deployment already exists.
+2020-09-05 05:06:35,347 - ctr - INFO - Directory ../../tests/09_documentation already exists.
+2020-09-05 05:06:35,347 - ctr - INFO - Directory ../../tests/09_documentation already exists.
+2020-09-05 11:54:57,252 - ctr - INFO - Extracting raw data...
+2020-09-05 13:40:54,025 - ctr - INFO - Initiating data extraction sequence.
+2020-09-05 13:51:04,451 - ctr - INFO - Initiating data extraction sequence.
+2020-09-05 13:59:57,961 - ctr - INFO - Initiating data extraction sequence.
+2020-09-05 13:59:57,962 - ctr - INFO - Evaluating ../../../data/kddcup2012-track2.zip
+2020-09-05 13:59:57,966 - ctr - INFO - Evaluating KDD_Track2_solution.csv
+2020-09-05 13:59:57,967 - ctr - INFO - Evaluating ad_benchmark.csv.gz
+2020-09-05 13:59:57,969 - ctr - INFO - Evaluating advertiser_benchmark.csv.gz
+2020-09-05 13:59:57,970 - ctr - INFO - Evaluating basic_id_benchmark.py
+2020-09-05 13:59:57,971 - ctr - INFO - Evaluating description_benchmark.csv.gz
+2020-09-05 13:59:57,973 - ctr - INFO - Evaluating keyword_benchmark.csv.gz
+2020-09-05 13:59:57,975 - ctr - INFO - Evaluating mean_benchmark.csv.gz
+2020-09-05 13:59:57,976 - ctr - INFO - Evaluating query_benchmark.csv.gz
+2020-09-05 13:59:57,977 - ctr - INFO - Evaluating scoreKDD.py
+2020-09-05 13:59:57,979 - ctr - INFO - Evaluating test.7z
+2020-09-05 13:59:57,980 - ctr - INFO - Evaluating test.zip
+2020-09-05 13:59:57,982 - ctr - INFO - Evaluating test_score_kdd.py
+2020-09-05 13:59:57,983 - ctr - INFO - Evaluating title_benchmark.csv.gz
+2020-09-05 13:59:57,985 - ctr - INFO - Evaluating track2.7z
+2020-09-05 13:59:57,986 - ctr - INFO - Evaluating track2.zip
+2020-09-05 13:59:57,987 - ctr - INFO - Evaluating user_benchmark.csv.gz
+2020-09-05 14:01:02,245 - ctr - INFO - Initiating data extraction sequence.
+2020-09-05 14:01:02,247 - ctr - INFO - Getting the inventory for ../../../data/kddcup2012-track2.zip
+2020-09-05 14:01:02,250 - ctr - INFO - Adding KDD_Track2_solution.csv to the inventory
+2020-09-05 14:01:02,252 - ctr - INFO - Adding ad_benchmark.csv.gz to the inventory
+2020-09-05 14:01:02,253 - ctr - INFO - Adding advertiser_benchmark.csv.gz to the inventory
+2020-09-05 14:01:02,255 - ctr - INFO - Adding basic_id_benchmark.py to the inventory
+2020-09-05 14:01:02,256 - ctr - INFO - Adding description_benchmark.csv.gz to the inventory
+2020-09-05 14:01:02,258 - ctr - INFO - Adding keyword_benchmark.csv.gz to the inventory
+2020-09-05 14:01:02,259 - ctr - INFO - Adding mean_benchmark.csv.gz to the inventory
+2020-09-05 14:01:02,260 - ctr - INFO - Adding query_benchmark.csv.gz to the inventory
+2020-09-05 14:01:02,261 - ctr - INFO - Adding scoreKDD.py to the inventory
+2020-09-05 14:01:02,263 - ctr - INFO - Adding test.7z to the inventory
+2020-09-05 14:01:02,264 - ctr - INFO - Adding test.zip to the inventory
+2020-09-05 14:01:02,266 - ctr - INFO - Adding test_score_kdd.py to the inventory
+2020-09-05 14:01:02,267 - ctr - INFO - Adding title_benchmark.csv.gz to the inventory
+2020-09-05 14:01:02,267 - ctr - INFO - Adding track2.7z to the inventory
+2020-09-05 14:01:02,268 - ctr - INFO - Adding track2.zip to the inventory
+2020-09-05 14:01:02,269 - ctr - INFO - Adding user_benchmark.csv.gz to the inventory
+2020-09-05 14:36:40,479 - ctr - INFO - Initiating data extraction sequence.
+2020-09-05 14:36:40,480 - ctr - INFO - Extracting ../../../data/kddcup2012-track2.zip
+2020-09-05 14:37:17,862 - ctr - INFO - Extracting test.zip
+2020-09-05 14:37:27,063 - ctr - INFO - Extracting track2.zip
+2020-09-05 16:04:19,322 - ctr - INFO - Initiating data extraction sequence.
+2020-09-05 16:04:19,325 - ctr - INFO - Extracting ../../../data/kddcup2012-track2.zip
+2020-09-05 17:19:15,205 - ctr - INFO - Initiating data extraction sequence.
+2020-09-05 17:19:15,206 - ctr - INFO - Extracting kddcup2012-track2.zip
+2020-09-05 17:19:52,813 - ctr - INFO - Extracting test.zip
+2020-09-05 17:21:53,639 - ctr - INFO - Initiating data extraction sequence.
+2020-09-05 17:21:53,640 - ctr - INFO - Extracting kddcup2012-track2.zip
+2020-09-05 17:22:30,862 - ctr - INFO - Extracting test.zip
+2020-09-05 17:22:44,679 - ctr - INFO - Copied test.txt to ../../../ctr/01_data_access/01_inputs/
+2020-09-05 17:22:44,680 - ctr - INFO - Extracting track2.zip
+2020-09-05 17:27:47,589 - ctr - INFO - Copied track2/descriptionid_tokensid.txt to ../../../ctr/01_data_access/01_inputs/
+2020-09-05 17:27:47,616 - ctr - INFO - Copied track2/purchasedkeywordid_tokensid.txt to ../../../ctr/01_data_access/01_inputs/
+2020-09-05 17:28:05,734 - ctr - INFO - Copied track2/queryid_tokensid.txt to ../../../ctr/01_data_access/01_inputs/
+2020-09-05 17:28:09,661 - ctr - INFO - Copied track2/titleid_tokensid.txt to ../../../ctr/01_data_access/01_inputs/
+2020-09-05 17:29:21,950 - ctr - INFO - Copied track2/training.txt to ../../../ctr/01_data_access/01_inputs/
+2020-09-05 17:29:27,966 - ctr - INFO - Copied track2/userid_profile.txt to ../../../ctr/01_data_access/01_inputs/
+2020-09-05 17:29:27,967 - ctr - INFO - Data acquisition complete.

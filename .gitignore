@@ -12,6 +12,8 @@ research/
 write-ups/
 opportunity/
 *.bib
+*.txt
+*.zip
 
 # Documentation related 
 *.csl
