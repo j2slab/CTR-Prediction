@@ -12,6 +12,11 @@ research/
 write-ups/
 opportunity/
 *.bib
+*.txt
+*.zip
+
+# Documentation related 
+*.csl
 
 # Workspaces and project files
 *.code-workspace

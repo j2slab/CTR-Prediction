@@ -1,167 +1,129 @@
----
-title: "Maximizing Click-Through Rate (CTR) with Analytics and State of the Art Ensemble and Deep Learning CTR Prediction Models"
-author: "John James john.james@nov8.ai"
-date: '`r format(Sys.time(), "%d %B, %Y")`'
-output: 
-  html_document:
-    toc: true
-    toc_depth: 4
-    toc_float: true
-    theme: flatly
-    highlight: zenburn
-    css: "style.css"
-bibliography: library.bib  
-csl: ieee.csl
----
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+TeX: {
+equationNumbers: {
+autoNumber: "all",
+formatNumber: function (n) {return ''+n}
+}
+}});</script>
 
-```{r libraries, echo=FALSE, cache=FALSE, warning=FALSE, message=FALSE, results='hide'}
-library(dplyr)
-library(extrafont)
-library(htmltools)
-library(kableExtra)
-library(kfigr)
-library(knitr)
-library(plotly)
-library(reticulate)
-library(rmarkdown)
-library(tufte)
-use_condaenv("gd383")
-matplotlib <- import("matplotlib")
-matplotlib$use("Agg", force=TRUE)
-```
+# Click-Through Rate Opportunity and Challenge Overview               
+Click-through rate (CTR), the ratio of users who click on a specific link or ad to the total number of users who have viewed the a webpage or ad. This digital marketing metric is often used to measure the effectiveness of advertising campaigns. Based upon ____ click-through rates have declined from an average global click-through rate of ___ in ___ to ___ in ____.
+[show graphic]
 
+To increase click-through rate, digital marketers need to understand the user, predict and influence her response to a display ad. By leveraging customer analytics and predictive modeling, marketers will be able to create more effective advertising campaigns that increase click-through rates, ultimately leading to higher conversion rates and greater marketing ROI. 
 
+Yet, the current CTR prediction state-of-the-art is ____. In general, the CTR prediction landscape can be described in terms of three types of models:                  
 
-```{r setup, echo=FALSE, cache=FALSE, warning=FALSE, message=FALSE}
-figures <- '/figures/'
-options(knitr.table.format = "html")
-options(max.print=100, scipen=999, width = 800)
-knitr::opts_chunk$set(echo=FALSE,
-	             cache=FALSE,
-               prompt=FALSE,
-	             eval = TRUE,
-               tidy=TRUE,
-               fig.height = 8,
-               fig.width = 20,
-               comment=NA,
-               message=FALSE,
-               warning=FALSE)
-knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
-knitr::opts_knit$set(width=100, figr.prefix = T, figr.link = T)
-knitr::opts_chunk$set(fig.path = figures)
-knitr::knit_hooks$set(inline = function(x) {
-  prettyNum(x, big.mark=",")
-})
-```
+1.    
+2.   
+3.     
 
-```{python imports}
-import numpy as np
-import pandas as pd
-import matplotlib
-import matplotlib.pyplot as plt
-import mlstudio
-```
+Many models perform equally well, but they are characterized by:
 
-```{python syspath}
-import inspect
-import os
-import sys
-os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = 'C:/Users/John/anaconda3/envs/gd383/Library/plugins/platforms'
-# Add home directory to path
-home = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-sys.path.append(home)
-```
+1.
+2.
+3.
 
-# Click-Through Rate: Describes and Determines Effectiveness of $135.Billion in Online Ad Spending per Annum 
+This project implements a novel CTR prediction model first introduced by .... et. al. in the ____. It was evaluated on a ..... dataset containing .... This ____ model was able to achieve an accuracy of ____ with an average training time of ____, x% below current state-of-the-art models by ____. 
 
-Click-through rate (CTR), the percent of impressions clicked on by the user, is not only descriptive but determinative. It reveals the strength (or weakness) and quality of ad copy, imagery, positioning, and keywords. 
-CTR also determines ad position as well as the cost of ad placements. For instance, Google uses CTR to determine not only the amount paid for online advertising but also the placement of the ad on search pages.  A low CTR reduces the Quality Score; consequently, Google determines that the ad is not as relevant as others on the page. Therefore, marketers with low CTRs have lower page positions, and to add insult to injury, incur higher 
-pay-per-click rates. 
+This project aimes to 
 
-[[REVIEW ARTICLE ON GLOBAL CTR RATES, DESCRIBE PROBLEM MORE SPECIFICALLY LOW CTR, AND IMPACT OF LOW CTR,HOW PLACEMENT AND RATES ARE CALCULATED]]
+## The Importance of Click-Through Rates
+
+Click-through rate (CTR), the percent of impressions clicked on by the user, is not only descriptive but prescriptive. CTR reveals the strength (or weakness) and quality of ad copy, imagery, positioning, and keywords. CTR also determines ad position as well as the cost of ad placements. For instance, Google uses CTR to determine not only the amount paid for online advertising but also the placement of the ad on search pages.  A low CTR reduces the Quality Score; consequently, Google determines that the ad is not as relevant as others on the page. Therefore, marketers with low CTRs have lower page positions, and to add insult to injury, incur higher pay-per-click rates.
+
 Therefore, accurate CTR prediction is imperative for online marketers.
 
-## How Big is the ?
+## How Big is the Problem      
 
-In a word, massive! Global digital ad spending crested \$325 billion in 2019 [1]_, and analysts expect digital ad spending to reach $982.82 billion 
-by 2025, at a CAGR of 21.6% [2]_. A McKinsey study shows that using data to 
-make better marketing decisions can increase marketing productivity by 
-15%-20%. Given the average annual global marketing spend of $ trillion, 
-that converts to $200 billion global ad savings [3]_. Accordingly, analysts 
-expect the customer analytics market to grow from $10.5 billion in 2020 to 
-$24.2 billion by 2025, at a compound annual growth rate (CAGR) of 18.2%. 
+In a word, massive! Global digital ad spending crested $325 billion in 2019 [1], and analysts expect digital ad spending to reach $982.82 billion by 2025, at a CAGR of 21.6% [2]. A McKinsey study shows that using data to make better marketing decisions can increase marketing productivity by 15%-20%. Given the average annual global marketing spend of $ trillion, that converts to $200 billion global ad savings [3]. Accordingly, analysts expect the customer analytics market to grow from $10.5 billion in 2020 to $24.2 billion by 2025, at a compound annual growth rate (CAGR) of 18.2%. 
 
-Project Scope
--------------
-This project aims to evaluate two state-of-the-art deep learning models 
-vis-à-vis machine learning techniques such as Logistic Regression, 
-Support Vector Machines, and Extreme Gradient Boosting. The two deep 
-learning models are:
 
-- Deep Field-weighted Factorization Machine 
-- An Ensemble of Diverse Models
+#	Project Scope
+##	Data 
+The model will be implemented on two data sources:            
 
-Deep Field-weighted Factorization Machine was first proposed by Deng, Pan, 
-and Zhou et. al. in their 2020 paper "DeepLight: Deep Lightweight Feature 
-Interactions for Accelerating CTR Predictions in Ad Serving" [4]_. The model
-scored an AUC of 0.8123 on the Criteo 1TB Click Through Rate dataset, the
-highest score to date on the world's largest click-through rate 
-benchmark dataset.  
+[enter table here]
+- Data Set	Training Set Size	# Features	# Samples
+Criteo Labs 1TB CTR Prediction Dataset	900GB	39	45M
+KDD-2012 CTR Prediction Dataset	6GB	36	42M
 
-The Ensemble of Diverse Models, proposed by the National Taiwan University
-Team was introduced in their paper "A Two-Stage Ensemble of Diverse Models for
-Advertisement Ranking in KDD Cup 2012"{5]_.
+###	Criteo Labs CTR Prediction Dataset                  
 
-Deep Field-weighted Factorization Machine (DeepFwFM)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The embedding-based neural networks, those that map high dimension categorical 
-features to lower dimension, continuous predictors,  learn both explicit 
-feature interactions through a shallow component and deep feature interactions 
-using a deep neural network (DNN) component. These sophisticated models, 
-however, come at high computation and memory expense. Computation times are 
-on the order of 100 times higher than other state-of-the-art techniques.
+This dataset contains feature values and clicks feedback for millions of display ads. Its purpose is to benchmark algorithms for click-through rate (CTR) prediction. This 1TB dataset consists of a portion of Criteo’s traffic over 24 days. Each row corresponds to a display ad served by Criteo, and the first column indicates whether a user has clicked on the advertisement.
 
-This framework accelerates CTR predictions in three respects:
+There are 13 features taking integer values (mostly count features) and 26 categorical features. Unfortunately, the features are anonymized; therefore, it will be used for modeling and prediction purposes only.
 
-1.	accelerate the model inference via explicitly searching informative 
-        feature interactions in the shallow component; 
-2.	prune redundant layers and parameters at intra-layer and inter-layer 
-        level in the DNN component; 
-3.	promote the sparsity of the embedding layer to preserve the 
-        most discriminant signals. 
+### KDD-2012 CTR Prediction Dataset                   
 
-By integrating the above components, this approach accelerates model inference 
-on the order of 46X on Criteo dataset with no loss in prediction accuracy. 
-This approach is a step towards more effective production deployment of 
-complicated embedding-based neural networks for ad serving and 
-management. 
+This dataset, provided by the Association for Computing Machinery (ACM) for the KDD 2012 CTR Prediction contest, is comprised of a training and a test set.  The 9.8GB training dataset contains 149,639,105 samples, and the test set includes 20,257,594 examples and has a size of 1.28GB.
 
-An Ensemble of Diverse Models
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The system ensemble contains the following models: 
+The core dataset contains the following information:          
 
+•	UserID: An anonymized indicator for a user and key to the userid_profile file                   
+•	AdID: A unique identifier for an ad.                  
+•	AdvertiserID: a unique identifier for an advertiser                      
+•	QueryID: The key to the query_tokens file
+•	KeywordID: The key to the purchased_keword file
+•	TitleID: The key to the titleid_tokensid file
+•	DescriptionID: The key to the description_tokensid file
+•	Query: The search issued by the user
+•	Depth: The number of ads impressed in a user session
+•	Position: The order of an advertisement in the impression list
+•	Impression: the number of search sessions in which the AdID was impressed upon UserID, who issued Query
+•	Click: the number of times, among the above impressions, the UserID clicked AdID.
+•	DisplayURL: the URL shown together with the title and description of an ad.
+
+Additional Files include:               
+
+•	Query ID / Tokens ID: Maps the query ID to a list of tokens
+•	Purchased KeywordID / TokensID: Maps purchased keywords to a list of tokens
+•	TitleID / TokensID: Maps the TitleID to a list of tokens
+•	DescriptionID / TokensID: Maps a description to a list of tokens
+•	UserID Profile: Each line of this file contains the UserID, gender, and age.
+
+
+2.2	Exploratory Data Analysis
+Once the data is obtained and cleaned, an exploratory data analysis will be conducted on the KDD-2012 dataset.  Research questions considered include:
+•	Which keywords have the highest click-through rates?
+•	Which advertisers have the highest click-through rates, and why?
+•	Which queries have the highest click-through rates?
+•	What is the distribution of click-through rates by display URL?
+•	Are there any URLs that stand out in terms of click-through rate? If so, why?
+Once the exploratory data analysis is conducted, a data story will be produced, highlighting the key insights of the study.
+2.3	Modeling
+This project aims to evaluate two state-of-the-art deep learning models vis-à-vis machine learning techniques such as Logistic Regression, Support Vector Machines, and Extreme Gradient Boosting. The two deep learning models are:
+1.	Deep Field-weighted Factorization Machine
+2.	An Ensemble of Diverse Models
+This project will also entail data cleaning, an exploratory data analysis, data storytelling, and an explanatory blog. 
+2.3.1	Deep Field-weighted Factorization Machine (DeepFwFM)
+The embedding-based neural networks, those that map high dimension categorical features to lower dimension, continuous predictors,  learn both explicit feature interactions through a shallow component and deep feature interactions using a deep neural network (DNN) component. These sophisticated models, however, come at high computation and memory expense. Computation times are on the order of 100 times higher than other state-of-the-art techniques.
+This project aims to implement the Deep Field-weighted Factorization Machine (DeepFwFM) proposed in [4]. This framework accelerates CTR predictions in three respects:
+1.	accelerate the model inference via explicitly searching informative feature interactions in the shallow component; 
+2.	prune redundant layers and parameters at intra-layer and inter-layer level in the DNN component; 
+3.	promote the sparsity of the embedding layer to preserve the most discriminant signals. 
+This approach scored an AUC of 0.8123, on the Criteo dataset, the #1 ranked score globally.  
+2.3.2	An Ensemble of Diverse Models
+This technique was developed by the KDD Cup 2012 National Taiwan University Team [5]. The system ensemble contains the following models: 
 1.	Classification Models
-        a.	Naïve Bayes
-        b.	Logistic Regression       
+a.	Naïve Bayes
+b.	Logistic Regression
+2.	Regression Models
+a.	Ridge Regression
+b.	Support Vector Regression
+3.	Ranking Models
+a.	Rank Logistic Regression
+b.	RankNet
+4.	Matrix Factorization Models
+a.	Regression-Based Matrix Factorization
+b.	Ranking Based Matrix Factorization
+Once each model has been evaluated on a validation set, the ensemble, created using TensorFlow, will be evaluated vis-à-vis the DeepFwFM.
+The core technologies for this project include:
+•	TensorFlow
+•	Apache Spark
+•	Google Cloud Machine Learning (cost permitting)
 
-2.	Regression Models           
-        a.       Ridge Regression          
-        b.	Support Vector Regression        
-
-3.	Ranking Models        
-        a.	Rank Logistic Regression            
-        b.	RankNet          
-
-4.	Matrix Factorization Models         
-        a.	Regression-Based Matrix Factorization          
-        b.	Ranking Based Matrix Factorization                   
-
-Once completed, an empirical evaluation will be conducted on two datasets:
-
-1.      The Criteo Labs Click-Through Rate Dataset [6]_ 
-2.      The KDD-2012 CTR Prediction Dataset [7]_
-
-The results will be outlined in blog post scheduled for mid-October 2020. 
 
 
 References

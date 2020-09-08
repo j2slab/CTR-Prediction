@@ -18,8 +18,7 @@
 # =========================================================================== #
 """Top-level package for Click Through Rate Prediction."""
 #%%
-
-
+from collections import OrderedDict
 import logging
 import os
 import sys
@@ -30,28 +29,20 @@ __author__ = """John James"""
 __email__ = 'john.james@nov8.ai'
 __version__ = '0.1.0'
 # Filenames and Directories
-HOME = "../../ctr/"
-DATA_DIR = "../../data/"
-TEST_DIR = "../../tests/"
-STEP_DIRECTORIES = {"pipeline": "00_pipeline", "data_access": "01_data_access",
-               "data_preprocessing": "02_data_preprocessing", "eda": "03_eda",
-               "data_preparation": "04_data_preparation", 
-               "model_development": "05_model_development",
-               "model_selection": "06_model_selection",
-               "model_evaluation": "07_model_evaluation",
-               "deployment": "08_deployment",
-               "documentation": "09_documentation"}
 
-STEP_SUBDIRECTORIES = {"inputs": "01_inputs", "code": "02_code", "outputs": "03_outputs",
-                      "temp": "04_temp"}               
+DATA_DIR = "../data/"
+EXTERNAL_DATA_DIR = "../data/external/"
+RAW_DATA_DIR = "../data/raw/"
+PREPROCESSED_DATA_DIR = "../data/preprocessed/"
+CLEAN_DATA_DIR = "../data/clean/"
+PROCESSED_DATA_DIR = "../data/processed/"
 
-
+KDD_DATA_FILENAME = "kddcup2012-track2.zip"
+    
 # --------------------------------------------------------------------------- #
 #                                  LOGGING                                    #
 # --------------------------------------------------------------------------- #
-LOGFILE_DIR = "../../ctr/log/"
-LOGFILE_NAME = "ctr.log"
-LOGFILE_PATH = os.path.join(LOGFILE_DIR, LOGFILE_NAME)
+LOGFILE_PATH = "./log/ctr.log"
 FORMATTER = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 def get_console_handler():
@@ -64,10 +55,11 @@ def get_file_handler():
     fh.setFormatter(FORMATTER)
     return fh
 
-def get_logger():
-    logger = logging.getLogger(__name__)
+def get_logger(name):
+    logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
-    logger.addHandler(get_console_handler())
-    logger.addHandler(get_file_handler())
+    if not logger.handlers:
+        logger.addHandler(get_console_handler())
+        logger.addHandler(get_file_handler())
     logger.propagate = False
     return logger
