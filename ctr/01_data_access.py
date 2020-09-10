@@ -23,6 +23,8 @@ import os
 import shutil
 import zipfile
 
+import mysql.connector
+
 from ctr import get_logger
 from ctr.utils.file_manager import copy_file, rm_directory_tree, make_directory
 from ctr.utils.file_manager import tab_to_csv, download_aws
@@ -95,7 +97,8 @@ class KDDCupData:
     def _download(self):
         """Downloads the dataset from the AWS S3 Bucket."""
         me = self.__class__.__name__ + " : " + inspect.stack()[0][3] 
-        logger = get_logger(me)                
+        logger = get_logger(me)              
+        proceed = True  
 
         data_exists = "The external data directory is not empty. \
             Are you sure that you want to download this dataset from AWS. \
@@ -105,17 +108,17 @@ class KDDCupData:
         
         if os.path.exists(ext_data_file):
             overwrite = input(data_exists)
-            if 'y' in overwrite.lower():
-                logger.info("Downloading data from Amazon S3 Bucket")  
-                download_aws(bucket_name=self.bucket_name, filename=self.zip_filename,
-                            dirname=self.ext_data_dir)
-                logger.info("Data download completed successfully.")
-        else:
+            proceed = True if 'y' in overwrite.lower() else False
+
+        if proceed:
             logger.info("Downloading data from Amazon S3 Bucket")  
             download_aws(bucket_name=self.bucket_name, filename=self.zip_filename,
                          dirname=self.ext_data_dir)
-            logger.info("Data download completed successfully.")            
-        return True
+            logger.info("Data download completed successfully.")
+            return True
+        else:
+            logger.info("Download aborted.")
+            return False
 
     def _extract_data(self, zipfile_name=None, base_path=None):
         """Extracts all members from zip file recursively."""
@@ -145,84 +148,41 @@ class KDDCupData:
                 
         return extract_path
 
-    def _convert_data(self):
-        """Convert data from tab-delimited to comma delimited format."""
+    def _get_raw_data(self):
+        """ Obtains raw data from external data."""
         me = self.__class__.__name__ + " : " + inspect.stack()[0][3] 
         logger = get_logger(me)
-        logger.info("Converting data to csv format.")           
+        logger.info("Obtaining raw data from {d}.".format(d=self.ext_data_dir))             
+        proceed = True
 
-        filenames = os.listdir(self.raw_data_dir)
-        for filename in filenames:            
-            txtfile = self.raw_data_dir + filename
-            csvfile = self.csv_data_dir + filename.strip(".txt") + ".csv"
-            logger.info("Converting {f} to .csv format.".format(f=txtfile))
-            tab_to_csv(txtfile=txtfile, csvfile=csvfile)
+        # If the external source file doesn't exist, download it from AWS
+        source_filepath = self.ext_data_dir + self.zip_filename
+        if not os.path.exists(source_filepath):
+            proceed = self._download()
         
-        logger.info("Conversion complete.")
-
-    def _etl(self):
-        """ Runs extract transform and load of data into database."""
-        pass
-
-    def _finalize(self):
-        """ Cleans up extracted files from source directory."""
-        me = self.__class__.__name__ + " : " + inspect.stack()[0][3] 
-        logger = get_logger(me)
-        logger.info("Data extraction complete.")
-
+        if proceed:
+            self._extract_data(zipfile_name=self.zip_filename, base_path=self.ext_data_dir)
+            #TODO: call database creator
+            return True
+        else:
+            return False        
+        
     def stage(self):
         me = self.__class__.__name__ + " : " + inspect.stack()[0][3] 
         logger = get_logger(me)
         logger.info("Data access pipeline initiated.")     
+        proceed = True
 
         if os.path.exists(self.raw_data_dir):
             contents = os.listdir(self.raw_data_dir)
             if len(contents) > 0:
                 print("The raw data directory is not empty. It contains:")
-                print_list(content)
+                print_list(contents)
                 overwrite = input("Do you wish to overwrite this data.")
-                if 'y' in overwrite.lower():
-                    self._get_raw_data()
-                else:
-                    rm_directory_tree(self.raw_data_dir)
-                    rm_directory_tree(self.csv_data_dir)
-                    make_directory(self.raw_data_dir)
-                    make_directory(self.csv_data_dir)
-
-                    zip_filepath = self.ext_data_dir + self.zip_filename
-                    if os.path.exists(zip_filepath):
-                        self._extract_data(zipfile_name=self.zip_filename,
-                                        base_path=self.ext_data_dir)
-                        self._convert_data()
-                        self._finalize()
-                    else:
-                        download_file = input("Zip file {z} does not exist. \
-                            Download from AWS S3 (this may take some time) \
-                                ['Y/N'])".format(z=self.zip_filename))
-                        if 'y' in download_file.lower():
-                            self._download()
-                            self._extract_data(zipfile_name=self.zip_filename,
-                                            base_path=self.ext_data_dir)
-                            self._convert_data()
-                            self._finalize()
-                        else:
-                            logger.info("Data access pipeline aborted.")
-
-                else:
-                    logger.info("Data access pipeline aborted.")
-            else:
-
-            
-
-
-
-
-        if self._initialize():
-            self._download()
-            self._extract_data(zipfile_name=self.zip_filename, base_path=self.ext_data_dir)            
-            self._convert_data()
-            self._finalize()
-        print("not staging")
+                proceed = 'y' in overwrite.lower() 
+                
+        if proceed:
+            self._get_raw_data()
 
 def main():
 
