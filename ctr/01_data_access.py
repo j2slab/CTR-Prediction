@@ -26,6 +26,7 @@ import zipfile
 from ctr import get_logger
 from ctr.utils.file_manager import copy_file, rm_directory_tree, make_directory
 from ctr.utils.file_manager import tab_to_csv, download_aws
+from ctr.utils.print import print_list
 # --------------------------------------------------------------------------- #
 
 class KDDCupData:
@@ -82,6 +83,8 @@ class KDDCupData:
                     else:
                         logger.info("Data extraction aborted")
                         return False
+                else:
+                    return True
             else:
                 make_directory(self.raw_data_dir)
                 make_directory(self.csv_data_dir)                
@@ -92,13 +95,27 @@ class KDDCupData:
     def _download(self):
         """Downloads the dataset from the AWS S3 Bucket."""
         me = self.__class__.__name__ + " : " + inspect.stack()[0][3] 
-        logger = get_logger(me)        
-        logger.info("Downloading data from Amazon S3 Bucket")  
+        logger = get_logger(me)                
 
-        download_aws(bucket_name=self.bucket_name, filename=self.zip_filename,
-                     dirname=self.ext_data_dir)
+        data_exists = "The external data directory is not empty. \
+            Are you sure that you want to download this dataset from AWS. \
+                It may take a while."
+
+        ext_data_file = self.ext_data_dir + self.zip_filename
         
-        logger.info("Data download completed successfully.")
+        if os.path.exists(ext_data_file):
+            overwrite = input(data_exists)
+            if 'y' in overwrite.lower():
+                logger.info("Downloading data from Amazon S3 Bucket")  
+                download_aws(bucket_name=self.bucket_name, filename=self.zip_filename,
+                            dirname=self.ext_data_dir)
+                logger.info("Data download completed successfully.")
+        else:
+            logger.info("Downloading data from Amazon S3 Bucket")  
+            download_aws(bucket_name=self.bucket_name, filename=self.zip_filename,
+                         dirname=self.ext_data_dir)
+            logger.info("Data download completed successfully.")            
+        return True
 
     def _extract_data(self, zipfile_name=None, base_path=None):
         """Extracts all members from zip file recursively."""
@@ -143,6 +160,10 @@ class KDDCupData:
         
         logger.info("Conversion complete.")
 
+    def _etl(self):
+        """ Runs extract transform and load of data into database."""
+        pass
+
     def _finalize(self):
         """ Cleans up extracted files from source directory."""
         me = self.__class__.__name__ + " : " + inspect.stack()[0][3] 
@@ -150,11 +171,58 @@ class KDDCupData:
         logger.info("Data extraction complete.")
 
     def stage(self):
+        me = self.__class__.__name__ + " : " + inspect.stack()[0][3] 
+        logger = get_logger(me)
+        logger.info("Data access pipeline initiated.")     
+
+        if os.path.exists(self.raw_data_dir):
+            contents = os.listdir(self.raw_data_dir)
+            if len(contents) > 0:
+                print("The raw data directory is not empty. It contains:")
+                print_list(content)
+                overwrite = input("Do you wish to overwrite this data.")
+                if 'y' in overwrite.lower():
+                    self._get_raw_data()
+                else:
+                    rm_directory_tree(self.raw_data_dir)
+                    rm_directory_tree(self.csv_data_dir)
+                    make_directory(self.raw_data_dir)
+                    make_directory(self.csv_data_dir)
+
+                    zip_filepath = self.ext_data_dir + self.zip_filename
+                    if os.path.exists(zip_filepath):
+                        self._extract_data(zipfile_name=self.zip_filename,
+                                        base_path=self.ext_data_dir)
+                        self._convert_data()
+                        self._finalize()
+                    else:
+                        download_file = input("Zip file {z} does not exist. \
+                            Download from AWS S3 (this may take some time) \
+                                ['Y/N'])".format(z=self.zip_filename))
+                        if 'y' in download_file.lower():
+                            self._download()
+                            self._extract_data(zipfile_name=self.zip_filename,
+                                            base_path=self.ext_data_dir)
+                            self._convert_data()
+                            self._finalize()
+                        else:
+                            logger.info("Data access pipeline aborted.")
+
+                else:
+                    logger.info("Data access pipeline aborted.")
+            else:
+
+            
+
+
+
+
         if self._initialize():
             self._download()
             self._extract_data(zipfile_name=self.zip_filename, base_path=self.ext_data_dir)            
             self._convert_data()
             self._finalize()
+        print("not staging")
 
 def main():
 
@@ -174,5 +242,6 @@ def main():
 if __name__ == "__main__":
     main()
     
+#%%
     
 

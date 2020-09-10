@@ -22,7 +22,9 @@ import csv
 import os
 import shutil
 
-from boto.s3.connection import S3Connection
+import pandas as pd
+import boto3
+from ctr import AWS_CREDENTIALS 
 # --------------------------------------------------------------------------- #
 def tab_to_csv(txtfile, csvfile):
     """ Converts a file from tab delimited to comma delimited format."""
@@ -68,11 +70,24 @@ def make_directory(directory):
 def download_aws(bucket_name, filename, dirname):
     """ Downloads a file from an Amazon AWS Bucket to the designated directory."""
 
-    aws_connection = S3Connection()
-    bucket = aws_connection.get_bucket(bucket_name)
-    key = bucket.get_key(filename)
-    key.get_contents_to_filename(dirname)    
+    local_filepath = dirname + filename
+    remote_filepath = "00_external_data/" + filename
+    
+    credentials = pd.read_csv(AWS_CREDENTIALS, dtype=str, index_col=0)
+    aws_access_key = credentials["Access key ID"][0]
+    aws_secret_key = credentials["Secret access key"][0]
+    aws_host = "us-east-2"
+
+    s3 = boto3.client('s3',
+                        aws_access_key_id=aws_access_key,
+                        aws_secret_access_key=aws_secret_key,
+                        region_name=aws_host)
+    
+    s3.download_file(bucket_name, remote_filepath, local_filepath)
     return True
+
+
+
 
 
 # %%

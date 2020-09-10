@@ -38,6 +38,7 @@ CLEAN_DATA_DIR = "../data/clean/"
 PROCESSED_DATA_DIR = "../data/processed/"
 
 KDD_DATA_FILENAME = "kddcup2012-track2.zip"
+AWS_CREDENTIALS = "./credentials/user_credentials.csv"
     
 # --------------------------------------------------------------------------- #
 #                                  LOGGING                                    #

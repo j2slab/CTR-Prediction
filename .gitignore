@@ -6,6 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
+# Credentials
+*/credentials
+
+# Logs
+*/log/
+
 # Data, Research, bibtex and Writeups
 data/
 research/
