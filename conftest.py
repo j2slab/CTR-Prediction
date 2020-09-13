@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # =========================================================================== #
 # Project : CTR Prediction                                                    #
-# File    : \00_pipeline.py                                                   #
+# File    : \conftest.py                                                      #
 # Python  : 3.8.5                                                             #
 # --------------------------------------------------------------------------- #
 # Author  : John James                                                        #
@@ -9,10 +9,11 @@
 # Email   : john.james@nov8.ai                                                #
 # URL     : https://github.com/j2slab/ctr_prediction                          #
 # --------------------------------------------------------------------------- #
-# Created       : Sunday, September 6th 2020, 7:43:56 pm                      #
-# Last Modified : Sunday, September 6th 2020, 7:43:57 pm                      #
+# Created       : Friday, September 11th 2020, 7:33:37 pm                     #
+# Last Modified : Friday, September 11th 2020, 7:33:38 pm                     #
 # Modified By   : John James (john.james@nov8.ai)                             #
 # --------------------------------------------------------------------------- #
 # License : BSD                                                               #
 # Copyright (c) 2020 nov8.ai                                                  #
 # =========================================================================== #
+collect_ignore = ["./tests/test_ctr.py", "setup.py"]

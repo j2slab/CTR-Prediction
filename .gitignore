@@ -14,6 +14,7 @@ __pycache__/
 
 # Data, Research, bibtex and Writeups
 data/
+test_data/
 research/
 write-ups/
 opportunity/

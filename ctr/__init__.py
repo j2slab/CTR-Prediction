@@ -20,6 +20,7 @@
 #%%
 from collections import OrderedDict
 import logging
+import logging.handlers
 import os
 import sys
 # --------------------------------------------------------------------------- #
@@ -28,22 +29,30 @@ import sys
 __author__ = """John James"""
 __email__ = 'john.james@nov8.ai'
 __version__ = '0.1.0'
-# Filenames and Directories
 
+# Filenames and Directories
 DATA_DIR = "../data/"
 EXTERNAL_DATA_DIR = "../data/external/"
 RAW_DATA_DIR = "../data/raw/"
 PREPROCESSED_DATA_DIR = "../data/preprocessed/"
 CLEAN_DATA_DIR = "../data/clean/"
 PROCESSED_DATA_DIR = "../data/processed/"
-
+CONFIG_FILEPATH = "config.ini"
 KDD_DATA_FILENAME = "kddcup2012-track2.zip"
-AWS_CREDENTIALS = "./credentials/user_credentials.csv"
+KDD_DATA_FILEPATH_AWS = "00_external_data/" + KDD_DATA_FILENAME
+KDD_DATA_FILEPATH_LOCAL = EXTERNAL_DATA_DIR + KDD_DATA_FILENAME
+KDD_BUCKET_NAME_AWS = "ctr-prediction"
+# Raw Data Filenames
+RAW_DATA_FILENAMES = {"training": "training.txt", "user": "userid_profile.txt",
+                      "description": "descriptionid_tokensid.txt",
+                      "keyword": "purchasedkeywordid_tokensid.txt",
+                      "query": "queryid_tokensid.txt",
+                      "title": "titleid_tokensid.txt"}
     
 # --------------------------------------------------------------------------- #
 #                                  LOGGING                                    #
 # --------------------------------------------------------------------------- #
-LOGFILE_PATH = "./log/ctr.log"
+LOGFILE_PATH = "./ctr/log/ctr.log"
 FORMATTER = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 def get_console_handler():
